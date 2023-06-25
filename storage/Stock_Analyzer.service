@@ -1,0 +1,16 @@
+
+[Unit]
+Description=Stock_Analyzer
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=connor
+ExecStart=/home/connor/anaconda3/envs/Stock_Analyzer/bin/python3 /home/connor/Stock_Analyzer/main.py
+WorkingDirectory=/home/connor/Stock_Analyzer
+Restart=always
+RestartSec=120
+
+[Install]
+WantedBy=multi-user.target

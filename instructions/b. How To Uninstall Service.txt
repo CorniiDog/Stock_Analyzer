@@ -1,0 +1,16 @@
+This is for uninstalling and removing the service.
+
+1. Run the following command to disable the service:
+    sudo systemctl disable [service_name]
+
+    sudo systemctl disable !<service_name>
+
+2. Run the following command to stop the service:
+    sudo systemctl stop [service_name]
+
+    sudo systemctl stop !<service_name>
+
+3. Run the following command to delete the service file:
+    sudo rm [service_moved_path]
+
+    sudo rm !<service_moved_path>

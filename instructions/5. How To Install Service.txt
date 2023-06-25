@@ -1,0 +1,39 @@
+A service is a program that runs in the background. This is useful for running a program that you want to run all the time, such as a web server.
+
+1. Run the following command to move the service file to the correct directory:
+    sudo mv [service_path] [service_moved_path]
+
+    sudo mv !<service_path> !<service_moved_path>
+
+2. Reload the daemon:
+    sudo systemctl daemon-reload
+
+3. Run the following command to enable the service:
+    sudo systemctl enable [service_name]
+
+    sudo systemctl enable !<service_name>
+
+4. Start the service:
+    sudo systemctl restart [service_name]
+
+    sudo systemctl restart !<service_name>
+
+5. View status of service:
+    sudo systemctl status [service_name]
+
+    sudo systemctl status !<service_name>
+
+To stop the service, run:
+    sudo systemctl stop [service_name]
+
+    sudo systemctl stop !<service_name>
+
+To disable the service, run:
+    sudo systemctl disable [service_name
+
+    sudo systemctl disable !<service_name>
+
+To view output of service easier:
+    journalctl --unit=[service_name] -n 100 --no-pager
+
+    journalctl --unit=!<service_name> -n 100 --no-pager
