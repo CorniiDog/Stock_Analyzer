@@ -14,6 +14,15 @@ Note
     This function is used to set the path to the database. The database is a
 ```
 
+Param
+
+```python
+    database_path: str
+        Path to the database
+    make_dir: bool
+        If True, create the directory if it does not exist
+```
+
 Return
 
 ```python
@@ -35,6 +44,16 @@ Note
 
 ```python
     This function is used to get the list of tickers. The tickers are saved in the database. If the tickers are older
+```
+
+Param
+
+```python
+    days_reset_frequency: int
+        Number of days before the tickers are reset, to avoid making too many API calls
+
+    request_fresh: bool
+        If True, then the tickers are requested fresh from the API, regardless of the last update time
 ```
 
 Return
@@ -72,6 +91,16 @@ Note
     Q = Bankruptcy
 ```
 
+Param
+
+```python
+    days_reset_frequency: int
+        Number of days before the tickers are reset, to avoid making too many API calls
+
+    request_fresh: bool
+        If True, then the tickers are requested fresh from the API, regardless of the last update time
+```
+
 Return
 
 ```python
@@ -103,6 +132,19 @@ Note
     This function is used to get the information for a given ticker. The information is saved in the database. If the
 ```
 
+Param
+
+```python
+    symbol: str
+        Ticker symbol
+
+    days_reset_frequency: int
+        Number of days before the tickers are reset, to avoid making too many API calls
+
+    request_fresh: bool
+        If True, then the tickers are requested fresh from the API, regardless of the last update time
+```
+
 Return
 
 ```python
@@ -129,6 +171,16 @@ Note
 
 ```python
     This function is used to get the information for all tickers. The information is saved in the database. If the
+```
+
+Param
+
+```python
+    days_reset_frequency: int
+        Number of days before the tickers are reset, to avoid making too many API calls
+
+    request_fresh: bool
+        If True, then the tickers are requested fresh from the API, regardless of the last update time
 ```
 
 Return

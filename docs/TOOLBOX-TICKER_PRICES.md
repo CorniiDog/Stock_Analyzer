@@ -14,6 +14,15 @@ Note
     This function is used to set the path to the database. The database is a
 ```
 
+Param
+
+```python
+    database_path: str
+        Path to the database
+    make_dir: bool
+        If True, create the directory if it does not exist
+```
+
 Return
 
 ```python
@@ -36,6 +45,19 @@ Note
 ```python
     This function is used to get the historical trend of a ticker. The historical trend is stored in the database. If the
     historical trend is not in the database, it will be downloaded from Yahoo Finance and stored in the database.
+```
+
+Param
+
+```python
+    ticker: str
+        Ticker symbol
+    start_date: datetime.datetime
+        Start date
+    end_date: datetime.datetime
+        End date
+    historical_buffer_days: int
+        Number of days to subtract from the end date
 ```
 
 Return

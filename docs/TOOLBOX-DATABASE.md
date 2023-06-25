@@ -14,9 +14,11 @@ Note
     This function is used to set the path to the folder where the database files will be stored
 ```
 
-Parameter
+Param
 
 ```python
+ters
+    ----------
     path : str
         The path to the folder where the database files will be stored
 ```
@@ -51,9 +53,11 @@ Note
     This is useful for creating file names from strings.
 ```
 
-Parameter
+Param
 
 ```python
+ters
+    ----------
     value : str
         The string to be slugified
     allow_unicode : bool
@@ -89,9 +93,11 @@ Note
     This function is used to load objects from the database folder
 ```
 
-Parameter
+Param
 
 ```python
+ters
+    ----------
     name : str
         The name of the file to be loaded
 ```
@@ -125,9 +131,11 @@ Note
     This function is used to get the last modified date of a file in the database folder
 ```
 
-Parameter
+Param
 
 ```python
+ters
+    ----------
     name : str
         The name of the file to be loaded
 ```
@@ -161,9 +169,11 @@ Note
     This function is used to save objects to the database folder
 ```
 
-Parameter
+Param
 
 ```python
+ters
+    ----------
     name : str
         The name of the file to be saved
     data : any
@@ -201,9 +211,11 @@ Note
     This function is used to delete objects from the database folder
 ```
 
-Parameter
+Param
 
 ```python
+ters
+    ----------
     name : str
         The name of the file to be deleted
 ```
@@ -241,9 +253,11 @@ Note
     This function is used to save keys in a secure location
 ```
 
-Parameter
+Param
 
 ```python
+ters
+    ----------
     platform: str
         The name of the platform to be saved (e.g. 'google')
     key: str
@@ -281,9 +295,11 @@ Note
         This function is used to load keys from a secure location
 ```
 
-Parameter
+Param
 
 ```python
+ters
+        ----------
         platform: str
             The key to be loaded (e.g. '<google_api_key>')
 ```

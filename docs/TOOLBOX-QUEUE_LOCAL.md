@@ -16,6 +16,15 @@ Note
     A queue can be implemented using a list or a linked list.
 ```
 
+Param
+
+```python
+    queue_list: list
+        The list to initialize the queue with
+    max_size: int
+        The maximum size of the queue
+```
+
 Example
 
 ```python
@@ -50,6 +59,15 @@ Note
         If the max_size is not None, then the queue will be initialized with the max_size
 ```
 
+Param
+
+```python
+        queue_list: list
+            The list to initialize the queue with
+        max_size: int
+            The maximum size of the queue
+```
+
 Return
 
 ```python
@@ -73,6 +91,13 @@ Note
 
 ```python
         Adds the item to the end of the queue
+```
+
+Param
+
+```python
+        item: any
+            The item to add to the queue
 ```
 
 Return
@@ -100,6 +125,12 @@ Note
 
 ```python
         Removes the first item from the queue
+```
+
+Param
+
+```python
+        None
 ```
 
 Return
@@ -132,6 +163,12 @@ Note
         Returns the size of the queue
 ```
 
+Param
+
+```python
+        None
+```
+
 Return
 
 ```python
@@ -161,6 +198,12 @@ Note
         Returns True if the queue is empty, False otherwise
 ```
 
+Param
+
+```python
+        None
+```
+
 Return
 
 ```python
@@ -187,6 +230,12 @@ Note
 
 ```python
         Returns the first item in the queue without removing it
+```
+
+Param
+
+```python
+        None
 ```
 
 Return
@@ -219,6 +268,12 @@ Note
         Returns the list of items in the queue
 ```
 
+Param
+
+```python
+        None
+```
+
 Return
 
 ```python
@@ -249,6 +304,12 @@ Note
         Returns the size of the queue
 ```
 
+Param
+
+```python
+        None
+```
+
 Return
 
 ```python
@@ -275,6 +336,12 @@ Note
 
 ```python
         Returns a copy of the queue
+```
+
+Param
+
+```python
+        None
 ```
 
 Return
@@ -307,6 +374,12 @@ Note
         Returns a copy of the queue
 ```
 
+Param
+
+```python
+        None
+```
+
 Return
 
 ```python
@@ -337,6 +410,13 @@ Note
         Returns True if the queues are equal, False otherwise
 ```
 
+Param
+
+```python
+        other: Queue
+            The other queue to compare to
+```
+
 Return
 
 ```python
@@ -361,6 +441,13 @@ Note
 
 ```python
         Returns True if the queues are not equal, False otherwise
+```
+
+Param
+
+```python
+        other: Queue
+            The other queue to compare to
 ```
 
 Return
@@ -389,6 +476,13 @@ Note
         Returns the item at the given index
 ```
 
+Param
+
+```python
+        index: int
+            The index of the item to get
+```
+
 Return
 
 ```python
@@ -412,6 +506,15 @@ Note
 
 ```python
         Sets the item at the given index to the given value
+```
+
+Param
+
+```python
+        index: int
+            The index of the item to set
+        value: any
+            The value to set the item to
 ```
 
 Return
@@ -439,6 +542,13 @@ Note
         Deletes the item at the given index
 ```
 
+Param
+
+```python
+        index: int
+            The index of the item to delete
+```
+
 Return
 
 ```python
@@ -462,6 +572,12 @@ Note
 
 ```python
         Returns an iterator for the queue
+```
+
+Param
+
+```python
+        None
 ```
 
 Return
@@ -490,6 +606,12 @@ Note
         Returns an iterator for the queue in reverse order
 ```
 
+Param
+
+```python
+        None
+```
+
 Return
 
 ```python
@@ -516,6 +638,13 @@ Note
         Returns True if the item is in the queue, False otherwise
 ```
 
+Param
+
+```python
+        item: any
+            The item to check for
+```
+
 Return
 
 ```python
@@ -539,6 +668,13 @@ Note
 
 ```python
         Returns a new queue with the items from both queues
+```
+
+Param
+
+```python
+        other: Queue
+            The other queue to add to this queue
 ```
 
 Return
@@ -568,6 +704,13 @@ Note
         Returns this queue with the items from both queues
 ```
 
+Param
+
+```python
+        other: Queue
+            The other queue to add to this queue
+```
+
 Return
 
 ```python
@@ -593,6 +736,13 @@ Note
 
 ```python
         Returns a new queue with the items from this queue repeated the given number of times
+```
+
+Param
+
+```python
+        other: int
+            The number of times to repeat the queue
 ```
 
 Return
@@ -621,6 +771,13 @@ Note
         Returns this queue with the items from this queue repeated the given number of times
 ```
 
+Param
+
+```python
+        other: int
+            The number of times to repeat the queue
+```
+
 Return
 
 ```python
@@ -645,6 +802,12 @@ Note
 
 ```python
         Returns a string representation of the queue
+```
+
+Param
+
+```python
+        None
 ```
 
 Return
