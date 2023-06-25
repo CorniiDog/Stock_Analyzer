@@ -39,7 +39,7 @@
 ## About
 
 
-This project is a stock Analyzer. It analyzes the trends and patterns of stocks, and uses machine learning to predict
+This project is a stock analyzer. It analyzes the trends and patterns of stocks, and uses machine learning to predict
 the future of the stock. There won't be any price predictions, but rather a buy or sell prediction and a confidence
 level. This project is still in development, and is not ready for use. This project is open source.
 
