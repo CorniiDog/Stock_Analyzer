@@ -175,6 +175,7 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
     pre_existing_trend = database.get(ticker + '_trend')
     if pre_existing_trend is None:
         pre_existing_trend = _get_trend_(ticker, start_date, end_date, cooldown=cooldown)
+        database.save(ticker + '_trend', pre_existing_trend)
     else:
         # Get the last date in the pre-existing trend
         last_date = pre_existing_trend.index[-1]
