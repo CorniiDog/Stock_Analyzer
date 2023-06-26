@@ -24,7 +24,12 @@ def main():
 
             approved_tickers = ticker_retreival.get_tickers()
             today = datetime.datetime.today()
-            for ticker in approved_tickers:
+            for i, ticker in enumerate(approved_tickers):
+                last_ticker = database.get("price_last_ticker")
+                if last_ticker is not None:
+                    if ticker != last_ticker:
+                        continue
+
                 # Get the ticker info. This will be obtained as yf.Ticker(symbol).info
                 ticker_info = ticker_retreival.get_ticker_information(ticker)
                 # Get firstTradeDateEpochUtc
@@ -33,6 +38,11 @@ def main():
                 start_date = datetime.datetime.fromtimestamp(first_trade_date)
 
                 ticker_prices.get_ticker_historical_trend(ticker, start_date, today)
+
+                if i < len(approved_tickers) - 1:
+                    database.save("price_last_ticker", approved_tickers[i + 1])
+
+            database.save("price_last_ticker", None)
 
             last_updated = now
         time.sleep(10)

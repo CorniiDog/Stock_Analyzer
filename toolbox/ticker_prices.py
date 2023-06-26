@@ -114,6 +114,8 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime, end_
                 end = end_date
             if pre_existing_trend is None:
                 pre_existing_trend = get_trend_request(ticker, start, end, interval=interval)
+                if pre_existing_trend is None:
+                    return None
             else:
                 pre_existing_trend = pd.concat([pre_existing_trend, get_trend_request(ticker, start, end, interval=interval)])
             time.sleep(1)
@@ -131,7 +133,11 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime, end_
         last_date = last_date.replace(tzinfo=pytz.utc).astimezone(end_date_timezone)
 
         if last_date < end_date:
-            pre_existing_trend = pd.concat([pre_existing_trend, get_trend(ticker, last_date, end_date)])
+            trend = get_trend(ticker, last_date, end_date)
+            if trend is None:
+                return pre_existing_trend
+            else:
+                pre_existing_trend = pd.concat([pre_existing_trend, trend])
 
     database.save(ticker + '_trend', pre_existing_trend)
     # Print last item in the trend
