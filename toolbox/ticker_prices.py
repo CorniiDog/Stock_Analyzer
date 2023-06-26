@@ -39,8 +39,6 @@ def _get_trend_request_(ticker, start, end, cooldown_counter=0, interval="1h", c
     if cooldown:
         time.sleep(3)
     try:
-        if start == None:
-            start = datetime.datetime.today() - datetime.timedelta(days=365*99)
         trend = yf.download(ticker, start=start, end=end, interval=interval, period='max')
         trend.index = pd.to_datetime(trend.index, utc=True)
         trend.index = trend.index.tz_convert('America/New_York')
