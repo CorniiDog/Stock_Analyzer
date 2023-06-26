@@ -91,7 +91,7 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
         if cooldown:
             time.sleep(3)
         try:
-            trend = yf.download(ticker, start, end, interval=interval)
+            trend = yf.download(ticker, start=start, end=end, interval=interval)
             trend.index = pd.to_datetime(trend.index, utc=True)
             trend.index = trend.index.tz_convert('America/New_York')
         except Exception as e:
@@ -187,6 +187,16 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
         last_date = pre_existing_trend.index[-1]
         # Localize to the same timezone as the end date
 
+        # If the place is closed, set it to the previous day
+        if end_date.hour < 9 or end_date.hour > 16:
+            end_date = end_date - datetime.timedelta(days=1)
+
+        # If the end date is during the weekend, set it to the previous Friday
+        if end_date.weekday() == 5:
+            end_date = end_date - datetime.timedelta(days=1)
+        elif end_date.weekday() == 6:
+            end_date = end_date - datetime.timedelta(days=2)
+
         if last_date < end_date and not database_only:
             trend = get_trend(ticker, last_date, end_date)
             if trend is None:
@@ -216,4 +226,4 @@ if __name__ == '__main__':
     datetime_object = datetime.datetime.strptime(date, '%m/%d/%Y')
 
     today = datetime.datetime.today()
-    print(get_ticker_historical_trend('MSFT', datetime_object, today, database_only=True))
+    print(get_ticker_historical_trend('MSFT', datetime_object, today))
