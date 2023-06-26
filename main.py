@@ -16,7 +16,8 @@ days_to_refresh = 1
 
 def main():
     stock = "ABT"
-    print(ticker_prices.get_ticker_historical_trend(stock, cooldown=False, database_only=True))
+    print(f"Getting {stock} historical data")
+    print(ticker_prices.get_ticker_historical_trend(stock, cooldown=False, database_only=False))
 
 
 

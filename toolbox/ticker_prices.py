@@ -115,14 +115,15 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
 
         start_date_none = start_date is None
         if start_date_none:
-            start_date = datetime.datetime(1970, 1, 1, tzinfo=pytz.UTC)
+            # Set to 5 years ago
+            start_date = end_date - datetime.timedelta(days=365 * 5)
         while start_date < end_date:
             a = start_date+datetime.timedelta(days=365)
 
             interval = "1h"
 
             # If the time delta is greater than 2 years, use 1d interval
-            if (end_date - start_date).days > 365 * 2:
+            if (end_date - start_date).days > 365 * 2-1:
                 interval = "1d"
 
             days = 365
