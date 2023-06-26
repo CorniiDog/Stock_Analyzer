@@ -39,7 +39,9 @@ def _get_trend_request_(ticker, start, end, cooldown_counter=0, interval="1h", c
     if cooldown:
         time.sleep(3)
     try:
-        trend = yf.download(ticker, start=start, end=end, interval=interval)
+        if start == None:
+            start = datetime.datetime.today() - datetime.timedelta(days=365*99)
+        trend = yf.download(ticker, start=start, end=end, interval=interval, period='max')
         trend.index = pd.to_datetime(trend.index, utc=True)
         trend.index = trend.index.tz_convert('America/New_York')
     except Exception as e:
@@ -114,7 +116,6 @@ def _get_trend_(ticker, start_date, end_date, cooldown=True):
                 return None
         else:
             pre_existing_trend = pd.concat([pre_existing_trend, _get_trend_request_(ticker, start, end, interval=interval, cooldown=cooldown)])
-        time.sleep(1)
     return pre_existing_trend
 
 def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown=True, database_only=False) -> pd.DataFrame:
@@ -173,7 +174,7 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
 
 
     pre_existing_trend = database.get(ticker + '_trend')
-    if pre_existing_trend is None:
+    if pre_existing_trend is None or len(pre_existing_trend.index) == 0:
         pre_existing_trend = _get_trend_(ticker, start_date, end_date, cooldown=cooldown)
         database.save(ticker + '_trend', pre_existing_trend)
     else:

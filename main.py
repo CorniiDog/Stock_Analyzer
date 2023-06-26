@@ -15,10 +15,11 @@ ticker_prices.set_storage_path(database_path)
 days_to_refresh = 1
 
 def main():
-    stock = "MSFT"
+
+    stock = "AAPL"
     print(f"Getting {stock} historical data")
     start_time = time.time()
-    print(ticker_prices.get_ticker_historical_trend(stock, cooldown=False, database_only=True))
+    print(ticker_prices.get_ticker_historical_trend(stock, cooldown=True, database_only=False))
     end_time = time.time()
     print(f"Time taken: {end_time - start_time}")
 
