@@ -205,7 +205,7 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
             else:
                 pre_existing_trend = pd.concat([pre_existing_trend, trend])
 
-    database.save(ticker + '_trend', pre_existing_trend)
+            database.save(ticker + '_trend', pre_existing_trend)
 
 
     # Get closest index to the end date
