@@ -110,8 +110,8 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
         start_date_none = start_date is None
         if start_date_none:
             start_date = datetime.datetime(1970, 1, 1, tzinfo=pytz.UTC)
-
         while start_date < end_date:
+            a = start_date+datetime.timedelta(days=365)
 
             interval = "1h"
 
@@ -120,14 +120,13 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
                 interval = "1d"
 
             days = 365
-            if (end_date - start_date).days < 365:
-                days = (end_date - start_date).days
-
-            if (end_date - start_date).days == 0:
+            if (end_date - start_date).days < days:
+                start_end_dates.append((start_date, end_date, interval))
                 break
+            else:
+                start_end_dates.append((start_date, start_date + datetime.timedelta(days=days), interval))
+                start_date = start_date + datetime.timedelta(days=days)
 
-            start_end_dates.append((start_date, start_date + datetime.timedelta(days=days), interval))
-            start_date = start_date + datetime.timedelta(days=days)
 
         # Combine all dates with "1d" intervals
         new_start_end_dates = []
