@@ -48,7 +48,9 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
     cooldown: bool
         If True, wait 3 seconds between requests
     database_only: bool
-        If True, only get the historical trend from the database
+        If True, only get the historical trend from the database.
+        Setting it to True will not download the historical trend from Yahoo Finance,
+        but it is faster to retrieve the historical trend from the database.
 
 
     Returns
