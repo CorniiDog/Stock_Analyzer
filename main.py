@@ -34,20 +34,20 @@ def main():
     columns = columns.drop("Volume")
 
     print("Plotting Trend")
-    trend_fig = ticker_plotter.get_figure(trend, columns, title=f"{ticker} Price")
-    trend_fig.write_image(f"{ticker}_trend.png")
+    #trend_fig = ticker_plotter.get_figure(trend, columns, title=f"{ticker} Price")
+    #trend_fig.write_image(f"{ticker}_trend.png")
 
     # Create a candlestick figure
-    candlestick_fig = ticker_plotter.get_candlestick_figure(trend, title=f"{ticker} Candlestick")
-    candlestick_fig.write_image(f"{ticker}_candlestick.png")
+    #candlestick_fig = ticker_plotter.get_candlestick_figure(trend, title=f"{ticker} Candlestick")
+    #candlestick_fig.write_image(f"{ticker}_candlestick.png")
 
     # Get pct change of prices
     print("Getting Percent Change")
     pct_change = ticker_price_analysis.get_pct_change(trend)
 
     print("Plotting Percent Change")
-    pct_fig = ticker_plotter.get_figure(pct_change, columns, title=f"{ticker} Percent Change", yaxis_name="Percent Change")
-    pct_fig.write_image(f"{ticker}_pct.png")
+    #pct_fig = ticker_plotter.get_figure(pct_change, columns, title=f"{ticker} Percent Change", yaxis_name="Percent Change")
+    #pct_fig.write_image(f"{ticker}_pct.png")
 
     end_time = time.time()
     print(f"Time taken: {end_time - start_time}")
