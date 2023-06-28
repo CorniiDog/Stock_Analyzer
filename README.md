@@ -51,7 +51,7 @@ All information about getting started can be seen by going into the documentatio
 
 ### Prerequisites
 
-These projects are primarily meant for Linux/Ubuntu based systems
+These projects are primarily meant for Ubuntu/Debian based systems
 
 
 
