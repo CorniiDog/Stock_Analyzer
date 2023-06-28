@@ -36,15 +36,160 @@ def set_storage_path(database_path: str, make_dir=False):
     ticker_prices.set_storage_path(database_path)
 
 
-def get_velocity_graph(ticker):
-    # Get the data
+def diff(df: pd.DataFrame):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of prices
 
-    start_date = datetime.datetime(1900, 1, 1)
-    today = datetime.datetime.today()
+    Returns
+    -------
+    diff_df: pd.DataFrame
+        Dataframe with datetime index and columns of differences in prices
 
-    df = ticker_prices.get_ticker_historical_trend(ticker, start_date, today)
-    # Put the data into a cupy array
-    cf = cp.array(df)
-    print(cf)
+    Notes
+    -----
+    This function is used to get the difference between the price of each datetime
 
-#get_velocity_graph("MSFT")
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    import pandas as pd
+    df = pd.DataFrame({'price': [1, 2, 3, 4, 5]}, index=pd.date_range('2020-01-01', periods=5, freq='1min'))
+    velocity_df = ticker_price_analysis.diff(df)
+    print(velocity_df)
+    """
+
+    # Create new df with same columns as df
+    diff_df = pd.DataFrame(columns=df.columns)
+
+    # get the difference, by taking the difference between the closing price of each datetime
+    # And dividing by the difference in time between each datetime, in minutes
+    for column in df.columns:
+        diff_df[column] = df[column].diff() / (df[column].index.to_series().diff().dt.total_seconds() / 60)
+
+    return diff_df
+
+
+def get_velocity(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False):
+    """
+    Parameters
+    ----------
+    ticker: str
+        Ticker symbol
+
+    start_date: datetime.datetime
+        Start date of the data
+
+    end_date: datetime.datetime
+        End date of the data
+
+    cooldown: bool
+        If True, wait 1 second between each request to the API
+
+    database_only: bool
+        If True, only use the database, do not make any requests to the API
+
+    Returns
+    -------
+    velocity_df: pd.DataFrame
+        Dataframe with datetime index and columns of velocity
+
+    Notes
+    -----
+    This function is used to get the velocity of the ticker
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    velocity_df = ticker_price_analysis.get_velocity('AAPL')
+    print(velocity_df)
+    """
+
+    df = ticker_prices.get_ticker_historical_trend(ticker, start_date, end_date, cooldown=cooldown,
+                                                   database_only=database_only)
+
+    return diff(df)
+
+
+def get_acceleration(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False):
+    """
+    Parameters
+    ----------
+    ticker: str
+        Ticker symbol
+
+    start_date: datetime.datetime
+        Start date of the data
+
+    end_date: datetime.datetime
+        End date of the data
+
+    cooldown: bool
+        If True, wait 1 second between each request to the API
+
+    database_only: bool
+        If True, only use the database, do not make any requests to the API
+
+    Returns
+    -------
+    acceleration_df: pd.DataFrame
+        Dataframe with datetime index and columns of acceleration
+
+    Notes
+    -----
+    This function is used to get the acceleration of the ticker
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    acceleration_df = ticker_price_analysis.get_acceleration('AAPL')
+    print(acceleration_df)
+    """
+
+    df = ticker_prices.get_ticker_historical_trend(ticker, start_date, end_date, cooldown=cooldown,
+                                                   database_only=database_only)
+
+    return diff(diff(df))
+
+
+def get_jerk(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False):
+    """
+    Parameters
+    ----------
+    ticker: str
+        Ticker symbol
+
+    start_date: datetime.datetime
+        Start date of the data
+
+    end_date: datetime.datetime
+        End date of the data
+
+    cooldown: bool
+        If True, wait 1 second between each request to the API
+
+    database_only: bool
+        If True, only use the database, do not make any requests to the API
+
+    Returns
+    -------
+    jerk_df: pd.DataFrame
+        Dataframe with datetime index and columns of jerk
+
+    Notes
+    -----
+    This function is used to get the jerk of the ticker
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    jerk_df = ticker_price_analysis.get_jerk('AAPL')
+    print(jerk_df)
+    """
+
+    df = ticker_prices.get_ticker_historical_trend(ticker, start_date, end_date, cooldown=cooldown,
+                                                   database_only=database_only)
+
+    return diff(diff(diff(df)))
