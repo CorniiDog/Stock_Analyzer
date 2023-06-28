@@ -239,12 +239,17 @@ In order to get selenium to work, you must install Chrome.
     sudo apt install wget
 
 
-### 4. Install latest version of chrome ###
+### 4. CD into your home directory ###
+
+    cd ~
+
+
+### 5. Install latest version of chrome ###
 
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 
-### 5. Install chrome ###
+### 6. Install chrome ###
 
     sudo apt install ./google-chrome-stable_current_amd64.deb
 
