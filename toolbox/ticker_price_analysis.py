@@ -1,6 +1,5 @@
 import os, datetime, requests, time
 import pandas as pd
-import cupy as cp
 from toolbox import database
 from toolbox import ticker_prices
 

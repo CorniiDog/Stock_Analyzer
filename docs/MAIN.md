@@ -6,5 +6,5 @@ Alternative Import Statement: `from main import *`
 
 # >  function main #
 
-### [def main():](./../main.py#L17) 
+### [def main():](./../main.py#L25) 
 

@@ -211,6 +211,7 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
     else:
         pre_existing_trend = pre_existing_trend.iloc[:end]
 
+
     # Print last item in the trend
     return pre_existing_trend
 
