@@ -6,7 +6,7 @@ Alternative Import Statement: `from toolbox.ticker_plotter import *`
 
 # >  function set_storage_path #
 
-### [def set_storage_path(database_path: str, make_dir=False):](./../toolbox/ticker_plotter.py#L8) 
+### [def set_storage_path(database_path: str, make_dir=False):](./../toolbox/ticker_plotter.py#L9) 
 
 Note
 
@@ -36,9 +36,9 @@ Example
     ticker_price_analysis.set_storage_path('~/Desktop/database', make_dir=True)
 ```
 
-# >  function get_figure #
+# >  function create_date_index #
 
-### [def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L39) 
+### [def create_date_index_(trend):](./../toolbox/ticker_plotter.py#L40) 
 
 Note
 
@@ -86,6 +86,106 @@ Example
     trend = ticker_prices.get_ticker_historical_trend('AAPL')
     fig = ticker_price_analysis.get_figure(trend, ['Close', 'Open'], 'AAPL')
     fig.show()
-    fig.write_image(f"AAPL_closing_price.png")
+    fig.write_image(f"AAPL_trend.png")
+```
+
+# >  function get_figure #
+
+### [def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L46) 
+
+Note
+
+```python
+    This function is used to plot the trend of the data. The trend is a dataframe where the index is the date and the
+    columns are the different types of data. The columns are the different types of data.
+```
+
+Param
+
+```python
+ters
+    ----------
+    trend: pd.DataFrame
+        Dataframe containing the trend
+
+    columns: list
+        List of columns to plot
+
+    title: str
+        Title of the plot
+
+    yaxis_name: str
+        Name of the y-axis
+
+    key_name: str
+        Name of the key
+```
+
+Return
+
+```python
+    fig: plotly.graph_objects.Figure
+        Plotly figure
+```
+
+Example
+
+```python
+    from toolbox import ticker_price_analysis
+    from toolbox import ticker_prices
+    ticker_price_analysis.set_storage_path('~/Desktop/database', make_dir=True)
+    ticker_prices.set_storage_path('~/Desktop/database')
+
+    trend = ticker_prices.get_ticker_historical_trend('AAPL')
+    fig = ticker_price_analysis.get_figure(trend, ['Close', 'Open'], 'AAPL')
+    fig.show()
+    fig.write_image(f"AAPL_trend.png")
+```
+
+# >  function get_candlestick_figure #
+
+### [def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L95) 
+
+Note
+
+```python
+    This function is used to plot the trend of the data. The trend is a dataframe where the index is the date and the
+    columns are the different types of data. The columns are the different types of data.
+```
+
+Param
+
+```python
+ters
+    ----------
+    trend: pd.DataFrame
+        Dataframe containing the trend
+
+    title: str
+        Title of the plot
+
+    yaxis_name: str
+        Name of the y-axis
+```
+
+Return
+
+```python
+    fig: plotly.graph_objects.Figure
+        Plotly figure
+```
+
+Example
+
+```python
+    from toolbox import ticker_price_analysis
+    from toolbox import ticker_prices
+    ticker_price_analysis.set_storage_path('~/Desktop/database', make_dir=True)
+    ticker_prices.set_storage_path('~/Desktop/database')
+
+    trend = ticker_prices.get_ticker_historical_trend('AAPL')
+    fig = ticker_price_analysis.get_candlestick_figure(trend, 'AAPL')
+    fig.show()
+    fig.write_image(f"AAPL_candlestick.png")
 ```
 

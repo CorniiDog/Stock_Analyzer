@@ -33,10 +33,21 @@ def main():
     columns = trend.columns
     columns = columns.drop("Volume")
 
-    fig = ticker_plotter.get_figure(trend, columns, title=f"{ticker} Price")
+    trend_fig = ticker_plotter.get_figure(trend, columns, title=f"{ticker} Price")
 
     # Save the figure as a png
-    fig.write_image(f"{ticker}_closing_price.png")
+    trend_fig.write_image(f"{ticker}_trend.png")
+
+    # Create a candlestick figure
+    candlestick_fig = ticker_plotter.get_candlestick_figure(trend, title=f"{ticker} Candlestick")
+
+    # Save the figure as a png
+    candlestick_fig.write_image(f"{ticker}_candlestick.png")
+
+
+
+
+
 
     end_time = time.time()
     print(f"Time taken: {end_time - start_time}")

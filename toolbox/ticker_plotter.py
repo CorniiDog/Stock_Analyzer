@@ -3,6 +3,7 @@ import pandas as pd
 from toolbox import database
 from toolbox import ticker_prices
 import plotly.express as px
+import plotly.graph_objects as go
 
 
 def set_storage_path(database_path: str, make_dir=False):
@@ -34,6 +35,12 @@ def set_storage_path(database_path: str, make_dir=False):
 
     database.set_storage_path(database_path)
     ticker_prices.set_storage_path(database_path)
+
+
+def create_date_index_(trend):
+    for index, row in trend.iterrows():
+        trend.at[index, "Date"] = index
+    return trend
 
 
 def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):
@@ -75,12 +82,65 @@ def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str =
     trend = ticker_prices.get_ticker_historical_trend('AAPL')
     fig = ticker_price_analysis.get_figure(trend, ['Close', 'Open'], 'AAPL')
     fig.show()
-    fig.write_image(f"AAPL_closing_price.png")
+    fig.write_image(f"AAPL_trend.png")
     """
 
     # First create Date column for the plot
-    for index, row in trend.iterrows():
-        trend.at[index, "Date"] = index
+    trend = create_date_index_(trend)
 
     return px.line(trend, x="Date", y=columns, title=title, color_discrete_sequence=px.colors.qualitative.Plotly,
                    labels={"value": yaxis_name, "variable": key_name})
+
+
+def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):
+    """
+    Parameters
+    ----------
+    trend: pd.DataFrame
+        Dataframe containing the trend
+
+    title: str
+        Title of the plot
+
+    yaxis_name: str
+        Name of the y-axis
+
+    Returns
+    -------
+    fig: plotly.graph_objects.Figure
+        Plotly figure
+
+    Notes
+    -----
+    This function is used to plot the trend of the data. The trend is a dataframe where the index is the date and the
+    columns are the different types of data. The columns are the different types of data.
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    from toolbox import ticker_prices
+    ticker_price_analysis.set_storage_path('~/Desktop/database', make_dir=True)
+    ticker_prices.set_storage_path('~/Desktop/database')
+
+    trend = ticker_prices.get_ticker_historical_trend('AAPL')
+    fig = ticker_price_analysis.get_candlestick_figure(trend, 'AAPL')
+    fig.show()
+    fig.write_image(f"AAPL_candlestick.png")
+    """
+
+    # First create Date column for the plot
+    trend = create_date_index_(trend)
+
+    fig = go.Figure(data=[go.Candlestick(x=trend['Date'],
+                    open=trend['Open'],
+                    high=trend['High'],
+                    low=trend['Low'],
+                    close=trend['Close'])])
+
+    fig.update_layout(
+        title=title,
+        yaxis_title=yaxis_name,
+    )
+
+    return fig
+
