@@ -116,7 +116,8 @@ def _get_trend_(ticker, start_date, end_date, cooldown=True):
             pre_existing_trend = pd.concat([pre_existing_trend, _get_trend_request_(ticker, start, end, interval=interval, cooldown=cooldown)])
     return pre_existing_trend
 
-def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown=True, database_only=False) -> pd.DataFrame:
+
+def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown = True, database_only=False, interval: str = "1h") -> pd.DataFrame:
     """
     Params
     ------
@@ -132,6 +133,9 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
         If True, only get the historical trend from the database.
         Setting it to True will not download the historical trend from Yahoo Finance,
         but it is faster to retrieve the historical trend from the database.
+    interval: str
+        Interval of the historical trend. If None, it will be set to "1d" if the time delta is greater than 2 years,
+        otherwise it will be set to "1h"
 
 
     Returns
@@ -197,6 +201,17 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
             else:
                 pre_existing_trend = pd.concat([pre_existing_trend, trend])
 
+                # Remove duplicates
+                times = []
+                duplicate_times = []
+                for time in pre_existing_trend.index:
+                    if time not in times:
+                        times.append(time)
+                    else:
+                        duplicate_times.append(time)
+
+                pre_existing_trend = pre_existing_trend.loc[times]
+
             database.save(ticker + '_trend', pre_existing_trend)
 
 
@@ -210,6 +225,10 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
         pre_existing_trend = pre_existing_trend.iloc[start:end]
     else:
         pre_existing_trend = pre_existing_trend.iloc[:end]
+
+    # Create trend with interval
+    if interval != "1h":
+        pre_existing_trend = pre_existing_trend.resample(interval).mean()
 
 
     # Print last item in the trend

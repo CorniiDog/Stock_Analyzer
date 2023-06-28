@@ -38,6 +38,9 @@ def set_storage_path(database_path: str, make_dir=False):
 
 
 def create_date_index_(trend):
+    # Deep copy the trend
+    trend = trend.copy(deep=True)
+
     for index, row in trend.iterrows():
         trend.at[index, "Date"] = index
     return trend

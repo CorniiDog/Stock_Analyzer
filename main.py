@@ -27,36 +27,27 @@ def main():
     ticker = "AMZN"
     print(f"Getting {ticker} historical data")
     start_time = time.time()
-    trend = ticker_prices.get_ticker_historical_trend(ticker, cooldown=False, database_only=False)
-
+    trend = ticker_prices.get_ticker_historical_trend(ticker, cooldown=False, database_only=True, interval="1d")
+    print("Getting trend data")
     # Create columns variable that does not contain the Date and Volume column
     columns = trend.columns
     columns = columns.drop("Volume")
 
+    print("Plotting Trend")
     trend_fig = ticker_plotter.get_figure(trend, columns, title=f"{ticker} Price")
-
-    # Save the figure as a png
     trend_fig.write_image(f"{ticker}_trend.png")
 
     # Create a candlestick figure
     candlestick_fig = ticker_plotter.get_candlestick_figure(trend, title=f"{ticker} Candlestick")
-
-    # Save the figure as a png
     candlestick_fig.write_image(f"{ticker}_candlestick.png")
 
-    # Get velocity of prices
-    velocity = ticker_price_analysis.diff(trend)
-    velocity_fig = ticker_plotter.get_figure(velocity, columns, title=f"{ticker} Velocity")
+    # Get pct change of prices
+    print("Getting Percent Change")
+    pct_change = ticker_price_analysis.get_pct_change(trend)
 
-    # Save the figure as a png
-    velocity_fig.write_image(f"{ticker}_velocity.png")
-
-    # Get acceleration of prices
-    acceleration = ticker_price_analysis.diff(velocity)
-    acceleration_fig = ticker_plotter.get_figure(acceleration, columns, title=f"{ticker} Acceleration")
-
-    # Save the figure as a png
-    acceleration_fig.write_image(f"{ticker}_acceleration.png")
+    print("Plotting Percent Change")
+    pct_fig = ticker_plotter.get_figure(pct_change, columns, title=f"{ticker} Percent Change", yaxis_name="Percent Change")
+    pct_fig.write_image(f"{ticker}_pct.png")
 
     end_time = time.time()
     print(f"Time taken: {end_time - start_time}")
