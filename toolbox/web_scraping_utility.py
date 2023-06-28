@@ -1,11 +1,42 @@
 import os, time
 from selenium import webdriver
-# Add headless option
+
+
 options = webdriver.ChromeOptions()
 options.add_argument('--headless=new')
 
-def test_headless(website, screenshot_path, screen_width=1920, screen_height=1080):
 
+def test_headless(website: str, screenshot_path, screen_width: int = 1920, screen_height: int = 1080):
+    """
+    Parameters
+    ----------
+    website: str
+        The website to take a screenshot of
+    screenshot_path: str
+        The path to save the screenshot to
+    screen_width: int
+        The width of the screen to take the screenshot of
+    screen_height: int
+        The height of the screen to take the screenshot of
+
+    Returns
+    -------
+    None
+
+    Note
+    ----
+    The screenshot will be saved as a .png file
+    This function is built just to test the headless option of selenium.
+
+    Example
+    -------
+    from toolbox import web_scraping_utility
+    import os
+    current_dir = os.getcwd()
+
+    screenshot_path = os.path.join(current_dir, 'test')
+    web_scraping_utility.test_headless('https://www.youtube.com', screenshot_path)
+    """
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
 
@@ -20,6 +51,8 @@ def test_headless(website, screenshot_path, screen_width=1920, screen_height=108
     if not screenshot_path.endswith('.png'):
         screenshot_path += '.png'
 
+    time.sleep(4)
+
     # Take screenshot
     driver.save_screenshot(screenshot_path)
 
@@ -27,4 +60,4 @@ def test_headless(website, screenshot_path, screen_width=1920, screen_height=108
 
 
 if __name__ == '__main__':
-    test_headless('https://www.google.com', 'test')
+    test_headless('https://www.youtube.com', 'test')

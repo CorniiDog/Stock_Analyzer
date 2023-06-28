@@ -18,6 +18,8 @@ This is the documentation for the project Stock_Analyzer.
 
 [5. HOW TO INSTALL SERVICE](/docs/INSTRUCTIONS.md#5-how-to-install-service)
 
+[6. HOW TO INSTALL SELENIUM AND CHROME](/docs/INSTRUCTIONS.md#6-how-to-install-selenium-and-chrome)
+
 [A. HOW TO REMOVE CONDA ENVIRONMENT](/docs/INSTRUCTIONS.md#a-how-to-remove-conda-environment)
 
 [B. HOW TO UNINSTALL SERVICE](/docs/INSTRUCTIONS.md#b-how-to-uninstall-service)
@@ -338,6 +340,75 @@ Example
     from toolbox import ticker_price_analysis
     jerk_df = ticker_price_analysis.get_jerk('AAPL')
     print(jerk_df)
+```
+
+
+
+</details>
+
+<br></details>
+
+
+<details>
+<summary>
+
+## Documentation For [toolbox/web_scraping_utility.py](/docs/TOOLBOX-WEB_SCRAPING_UTILITY.md)
+
+</summary>
+
+
+ <details>
+<summary>
+
+### > [function test_headless](/docs/TOOLBOX-WEB_SCRAPING_UTILITY.md#function-test_headless) 
+
+
+
+</summary>
+
+[def test_headless(website: str, screenshot_path, screen_width: int = 1920, screen_height: int = 1080):](./../toolbox/web_scraping_utility.py#L9) 
+
+Note
+
+
+```python
+    The screenshot will be saved as a .png file
+    This function is built just to test the headless option of selenium.
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    website: str
+        The website to take a screenshot of
+    screenshot_path: str
+        The path to save the screenshot to
+    screen_width: int
+        The width of the screen to take the screenshot of
+    screen_height: int
+        The height of the screen to take the screenshot of
+```
+
+Return
+
+
+```python
+    None
+```
+
+Example
+
+
+```python
+    from toolbox import web_scraping_utility
+    import os
+    current_dir = os.getcwd()
+
+    screenshot_path = os.path.join(current_dir, 'test')
+    web_scraping_utility.test_headless('https://www.youtube.com', screenshot_path)
 ```
 
 

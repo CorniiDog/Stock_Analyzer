@@ -218,6 +218,45 @@ To view output of service easier:
 
 
 
+## 6. HOW TO INSTALL SELENIUM AND CHROME ##
+
+
+In order to get selenium to work, you must install Chrome.
+
+
+### 1.  Update ###
+
+    sudo apt-get update
+
+
+### 2.  Then upgrade with the following command ###
+
+    sudo apt-get upgrade
+
+
+### 3. Install wget ###
+
+    sudo apt install wget
+
+
+### 4. Install latest version of chrome ###
+
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+
+### 5. Install chrome ###
+
+    sudo apt install ./google-chrome-stable_current_amd64.deb
+
+
+Whenever prompted, type y and press enter.
+
+
+You are done! Now you can use selenium with chrome.
+
+
+
+
 ## A. HOW TO REMOVE CONDA ENVIRONMENT ##
 
 
