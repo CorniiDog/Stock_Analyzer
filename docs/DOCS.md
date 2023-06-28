@@ -164,13 +164,65 @@ Example
  <details>
 <summary>
 
+### > [function get_pct_change](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-get_pct_change) 
+
+
+
+</summary>
+
+[def get_pct_change(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L73) 
+
+Note
+
+
+```python
+    This function is used to get the percent change between the price of each datetime
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of prices
+```
+
+Return
+
+
+```python
+    pct_change_df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change in prices
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    import pandas as pd
+    df = pd.DataFrame({'price': [1, 2, 3, 4, 5]}, index=pd.date_range('2020-01-01', periods=5, freq='1min'))
+    pct_change_trend = ticker_price_analysis.get_pct_change(df)
+    print(pct_change_trend)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
 ### > [function get_velocity](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-get_velocity) 
 
 
 
 </summary>
 
-[def get_velocity(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False):](./../toolbox/ticker_price_analysis.py#L74) 
+[def get_velocity(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L109) 
 
 Note
 
@@ -232,7 +284,7 @@ Example
 
 </summary>
 
-[def get_acceleration(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False):](./../toolbox/ticker_price_analysis.py#L115) 
+[def get_acceleration(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L150) 
 
 Note
 
@@ -294,7 +346,7 @@ Example
 
 </summary>
 
-[def get_jerk(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False):](./../toolbox/ticker_price_analysis.py#L156) 
+[def get_jerk(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L191) 
 
 Note
 
@@ -340,6 +392,184 @@ Example
     from toolbox import ticker_price_analysis
     jerk_df = ticker_price_analysis.get_jerk('AAPL')
     print(jerk_df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function get_pct_change_velocity](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-get_pct_change_velocity) 
+
+
+
+</summary>
+
+[def get_pct_change_velocity(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L231) 
+
+Note
+
+
+```python
+    This function is used to get the percent change velocity of the ticker
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    ticker: str
+        Ticker symbol
+
+    start_date: datetime.datetime
+        Start date of the data
+
+    end_date: datetime.datetime
+        End date of the data
+
+    cooldown: bool
+        If True, wait 1 second between each request to the API
+
+    database_only: bool
+        If True, only use the database, do not make any requests to the API
+```
+
+Return
+
+
+```python
+    pct_change_velocity_df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change velocity
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    pct_change_velocity_df = ticker_price_analysis.get_pct_change_velocity('AAPL')
+    print(pct_change_velocity_df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function get_pct_change_acceleration](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-get_pct_change_acceleration) 
+
+
+
+</summary>
+
+[def get_pct_change_acceleration(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L272) 
+
+Note
+
+
+```python
+    This function is used to get the percent change acceleration of the ticker
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    ticker: str
+        Ticker symbol
+    start_date: datetime.datetime
+        Start date of the data
+    end_date: datetime.datetime
+        End date of the data
+    cooldown: bool
+        If True, wait 1 second between each request to the API
+    database_only: bool
+        If True, only use the database, do not make any requests to the API
+```
+
+Return
+
+
+```python
+    pct_change_acceleration_df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change acceleration
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    pct_change_acceleration_df = ticker_price_analysis.get_pct_change_acceleration('AAPL')
+    print(pct_change_acceleration_df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function get_pct_change_jerk](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-get_pct_change_jerk) 
+
+
+
+</summary>
+
+[def get_pct_change_jerk(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L309) 
+
+Note
+
+
+```python
+    This function is used to get the percent change jerk of the ticker
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    ticker: str
+        Ticker symbol
+    start_date: datetime.datetime
+        Start date of the data
+    end_date: datetime.datetime
+        End date of the data
+    cooldown: bool
+        If True, wait 1 second between each request to the API
+    database_only: bool
+        If True, only use the database, do not make any requests to the API
+```
+
+Return
+
+
+```python
+    pct_change_jerk_df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change jerk
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    pct_change_jerk_df = ticker_price_analysis.get_pct_change_jerk('AAPL')
+    print(pct_change_jerk_df)
 ```
 
 
@@ -802,7 +1032,7 @@ Example
 
 </summary>
 
-[def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown=True, database_only=False) -> pd.DataFrame:](./../toolbox/ticker_prices.py#L119) 
+[def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown = True, database_only=False, interval: str = "1h") -> pd.DataFrame:](./../toolbox/ticker_prices.py#L120) 
 
 Note
 
@@ -828,6 +1058,9 @@ Param
         If True, only get the historical trend from the database.
         Setting it to True will not download the historical trend from Yahoo Finance,
         but it is faster to retrieve the historical trend from the database.
+    interval: str
+        Interval of the historical trend. If None, it will be set to "1d" if the time delta is greater than 2 years,
+        otherwise it will be set to "1h"
 ```
 
 Return
@@ -991,7 +1224,7 @@ Example
 
 </summary>
 
-[def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L46) 
+[def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L49) 
 
 Note
 
@@ -1060,7 +1293,7 @@ Example
 
 </summary>
 
-[def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L95) 
+[def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L98) 
 
 Note
 

@@ -91,7 +91,7 @@ Example
 
 # >  function get_figure #
 
-### [def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L46) 
+### [def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L49) 
 
 Note
 
@@ -144,7 +144,7 @@ Example
 
 # >  function get_candlestick_figure #
 
-### [def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L95) 
+### [def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L98) 
 
 Note
 

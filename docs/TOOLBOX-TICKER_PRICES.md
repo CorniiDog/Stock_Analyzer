@@ -46,7 +46,7 @@ Example
 
 # >  function get_ticker_historical_trend #
 
-### [def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown=True, database_only=False) -> pd.DataFrame:](./../toolbox/ticker_prices.py#L119) 
+### [def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown = True, database_only=False, interval: str = "1h") -> pd.DataFrame:](./../toolbox/ticker_prices.py#L120) 
 
 Note
 
@@ -70,6 +70,9 @@ Param
         If True, only get the historical trend from the database.
         Setting it to True will not download the historical trend from Yahoo Finance,
         but it is faster to retrieve the historical trend from the database.
+    interval: str
+        Interval of the historical trend. If None, it will be set to "1d" if the time delta is greater than 2 years,
+        otherwise it will be set to "1h"
 ```
 
 Return
