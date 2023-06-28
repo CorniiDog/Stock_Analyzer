@@ -4,3 +4,4 @@ yahoo-fin
 matplotlib
 plotly
 kaleido
+selenium

@@ -24,7 +24,7 @@ days_to_refresh = 1
 
 def main():
 
-    ticker = "MSFT"
+    ticker = "AMZN"
     print(f"Getting {ticker} historical data")
     start_time = time.time()
     trend = ticker_prices.get_ticker_historical_trend(ticker, cooldown=False, database_only=False)
@@ -44,10 +44,19 @@ def main():
     # Save the figure as a png
     candlestick_fig.write_image(f"{ticker}_candlestick.png")
 
+    # Get velocity of prices
+    velocity = ticker_price_analysis.diff(trend)
+    velocity_fig = ticker_plotter.get_figure(velocity, columns, title=f"{ticker} Velocity")
 
+    # Save the figure as a png
+    velocity_fig.write_image(f"{ticker}_velocity.png")
 
+    # Get acceleration of prices
+    acceleration = ticker_price_analysis.diff(velocity)
+    acceleration_fig = ticker_plotter.get_figure(acceleration, columns, title=f"{ticker} Acceleration")
 
-
+    # Save the figure as a png
+    acceleration_fig.write_image(f"{ticker}_acceleration.png")
 
     end_time = time.time()
     print(f"Time taken: {end_time - start_time}")
