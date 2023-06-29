@@ -74,7 +74,7 @@ This is the documentation for the project Stock_Analyzer.
 
 </summary>
 
-[def set_storage_path(database_path: str, make_dir=False):](./../toolbox/ticker_price_analysis.py#L7) 
+[def set_storage_path(database_path: str, make_dir=False):](./../toolbox/ticker_price_analysis.py#L8) 
 
 Note
 
@@ -122,7 +122,7 @@ Example
 
 </summary>
 
-[def diff(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L38) 
+[def diff(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L39) 
 
 Note
 
@@ -174,7 +174,7 @@ Example
 
 </summary>
 
-[def get_pct_change(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L73) 
+[def get_pct_change(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L74) 
 
 Note
 
@@ -226,7 +226,7 @@ Example
 
 </summary>
 
-[def get_velocity(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L109) 
+[def get_velocity(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L110) 
 
 Note
 
@@ -288,7 +288,7 @@ Example
 
 </summary>
 
-[def get_acceleration(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L150) 
+[def get_acceleration(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L151) 
 
 Note
 
@@ -350,7 +350,7 @@ Example
 
 </summary>
 
-[def get_jerk(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L191) 
+[def get_jerk(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L192) 
 
 Note
 
@@ -412,7 +412,7 @@ Example
 
 </summary>
 
-[def get_pct_change_velocity(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L231) 
+[def get_pct_change_velocity(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L233) 
 
 Note
 
@@ -474,7 +474,7 @@ Example
 
 </summary>
 
-[def get_pct_change_acceleration(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L272) 
+[def get_pct_change_acceleration(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L274) 
 
 Note
 
@@ -532,7 +532,7 @@ Example
 
 </summary>
 
-[def get_pct_change_jerk(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L309) 
+[def get_pct_change_jerk(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):](./../toolbox/ticker_price_analysis.py#L311) 
 
 Note
 
@@ -590,7 +590,7 @@ Example
 
 </summary>
 
-[def average(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L346) 
+[def average(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L348) 
 
 Note
 
@@ -625,6 +625,218 @@ Example
     df = ticker_prices.get_ticker_historical_trend('AAPL')
     average_df = ticker_price_analysis.average(df)
     print(average_df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function standard_deviation](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-standard_deviation) 
+
+
+
+</summary>
+
+[def standard_deviation(df: pd.DataFrame, sample=True):](./../toolbox/ticker_price_analysis.py#L383) 
+
+Note
+
+
+```python
+    This function is used to get the standard deviation of the dataframe
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    sample: bool
+        If True, use sample standard deviation, else use population standard deviation
+```
+
+Return
+
+
+```python
+    standard_deviation_df: pd.DataFrame
+        Dataframe with datetime index and columns of standard deviation
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    standard_deviation_df = ticker_price_analysis.standard_deviation(df)
+    print(standard_deviation_df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function max](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-max) 
+
+
+
+</summary>
+
+[def max(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L420) 
+
+Note
+
+
+```python
+    This function is used to get the max of the dataframe
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+```
+
+Return
+
+
+```python
+    max_df: pd.DataFrame
+        Dataframe with datetime index and columns of max
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    max_df = ticker_price_analysis.max(df)
+    print(max_df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function min](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-min) 
+
+
+
+</summary>
+
+[def min(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L455) 
+
+Note
+
+
+```python
+    This function is used to get the min of the dataframe
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+```
+
+Return
+
+
+```python
+    min_df: pd.DataFrame
+        Dataframe with datetime index and columns of min
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    min_df = ticker_price_analysis.min(df)
+    print(min_df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function skew](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-skew) 
+
+
+
+</summary>
+
+[def skew(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L489) 
+
+Note
+
+
+```python
+    This function is used to get the skew of the dataframe.
+    For each skew variable:
+    skew = 0: normally distributed
+    skew < 0: more weight in the right tail of the distribution
+    skew > 0: more weight in the left tail of the distribution
+
+    For instance, a skew of -0.35 means that there is more weight in the right tail of the distribution.
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+```
+
+Return
+
+
+```python
+    skew_df: pd.DataFrame
+        Dataframe with datetime index and columns of skew.
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    skew_df = ticker_price_analysis.skew(df)
+    print(skew_df)
 ```
 
 

@@ -1,5 +1,6 @@
 import os, datetime, requests, time
 import pandas as pd
+import numpy as np
 from toolbox import database
 from toolbox import ticker_prices
 
@@ -228,6 +229,7 @@ def get_jerk(ticker: str, start_date=None, end_date=None, cooldown=True, databas
 
     return diff(diff(diff(df)))
 
+
 def get_pct_change_velocity(ticker: str, start_date=None, end_date=None, cooldown=True, database_only=False, interval="1d"):
     """
     Parameters
@@ -366,5 +368,161 @@ def average(df: pd.DataFrame):
     average_df = ticker_price_analysis.average(df)
     print(average_df)
     """
+    df_copy = pd.DataFrame()
+    for column in df.columns:
+        # If the column is incapable of being averaged, skip it
+        if df[column].dtype == 'object':
+            continue
+        # If the column is empty, skip it
+        if df[column].isnull().values.all():
+            continue
+        df_copy[column] = [df[column].mean()]
+    return df_copy
 
-    return df.mean(axis=1)
+
+def standard_deviation(df: pd.DataFrame, sample=True):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    sample: bool
+        If True, use sample standard deviation, else use population standard deviation
+
+    Returns
+    -------
+    standard_deviation_df: pd.DataFrame
+        Dataframe with datetime index and columns of standard deviation
+
+    Notes
+    -----
+    This function is used to get the standard deviation of the dataframe
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    standard_deviation_df = ticker_price_analysis.standard_deviation(df)
+    print(standard_deviation_df)
+    """
+    df_copy = pd.DataFrame()
+    for column in df.columns:
+        # If the column is incapable of being averaged, skip it
+        if df[column].dtype == 'object':
+            continue
+        # If the column is empty, skip it
+        if df[column].isnull().values.all():
+            continue
+        df_copy[column] = [df[column].std(ddof=1 if sample else 0)]
+    return df_copy
+
+
+def max(df: pd.DataFrame):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+
+    Returns
+    -------
+    max_df: pd.DataFrame
+        Dataframe with datetime index and columns of max
+
+    Notes
+    -----
+    This function is used to get the max of the dataframe
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    max_df = ticker_price_analysis.max(df)
+    print(max_df)
+    """
+    df_copy = pd.DataFrame()
+    for column in df.columns:
+        # If the column is incapable of being averaged, skip it
+        if df[column].dtype == 'object':
+            continue
+        # If the column is empty, skip it
+        if df[column].isnull().values.all():
+            continue
+        df_copy[column] = [df[column].max()]
+    return df_copy
+
+
+def min(df: pd.DataFrame):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+
+    Returns
+    -------
+    min_df: pd.DataFrame
+        Dataframe with datetime index and columns of min
+
+    Notes
+    -----
+    This function is used to get the min of the dataframe
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    min_df = ticker_price_analysis.min(df)
+    print(min_df)
+    """
+    df_copy = pd.DataFrame()
+    for column in df.columns:
+        # If the column is incapable of being averaged, skip it
+        if df[column].dtype == 'object':
+            continue
+        # If the column is empty, skip it
+        if df[column].isnull().values.all():
+            continue
+        df_copy[column] = [df[column].min()]
+    return df_copy
+
+def skew(df: pd.DataFrame):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+
+    Returns
+    -------
+    skew_df: pd.DataFrame
+        Dataframe with datetime index and columns of skew.
+
+
+    Notes
+    -----
+    This function is used to get the skew of the dataframe.
+    For each skew variable:
+    skew = 0: normally distributed
+    skew < 0: more weight in the right tail of the distribution
+    skew > 0: more weight in the left tail of the distribution
+
+    For instance, a skew of -0.35 means that there is more weight in the right tail of the distribution.
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    skew_df = ticker_price_analysis.skew(df)
+    print(skew_df)
+    """
+    df_copy = pd.DataFrame()
+    for column in df.columns:
+        # If the column is incapable of being averaged, skip it
+        if df[column].dtype == 'object':
+            continue
+        # If the column is empty, skip it
+        if df[column].isnull().values.all():
+            continue
+        df_copy[column] = [df[column].skew()]
+    return df_copy

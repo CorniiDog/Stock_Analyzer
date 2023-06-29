@@ -30,6 +30,10 @@ def main():
 
     start_date = datetime.datetime.now() - datetime.timedelta(days=31)
     trend = ticker_prices.get_ticker_historical_trend(ticker, cooldown=False, database_only=True, start_date=start_date)
+
+    averages = ticker_price_analysis.skew(trend)
+    print(averages)
+
     print("Getting trend data")
     # Create columns variable that does not contain the Date and Volume column
     #columns = trend.columns
