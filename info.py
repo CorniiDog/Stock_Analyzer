@@ -15,6 +15,7 @@ data = {
     "path_to_logo": "/storage/logo.png",
     "email": "connor.sw.personal@gmail.com",
     "full_name": "Connor White",
+    "documentation_folder": "documentation"
 }
 
 data["about"] = """

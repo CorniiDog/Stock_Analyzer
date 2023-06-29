@@ -4,6 +4,8 @@
 
 This is the documentation for the project Stock_Analyzer.
 
+[Plotting](./documentation/Plotting.ipynb)
+
 ## INSTRUCTIONS.md ##
 
 [0. HOW TO USE THIS TEMPLATE](/docs/INSTRUCTIONS.md#0-how-to-use-this-template)
@@ -1157,59 +1159,6 @@ Example
 
 [def create_date_index_(trend):](./../toolbox/ticker_plotter.py#L40) 
 
-Note
-
-
-```python
-    This function is used to plot the trend of the data. The trend is a dataframe where the index is the date and the
-    columns are the different types of data. The columns are the different types of data.
-```
-
-Param
-
-
-```python
-ters
-    ----------
-    trend: pd.DataFrame
-        Dataframe containing the trend
-
-    columns: list
-        List of columns to plot
-
-    title: str
-        Title of the plot
-
-    yaxis_name: str
-        Name of the y-axis
-
-    key_name: str
-        Name of the key
-```
-
-Return
-
-
-```python
-    fig: plotly.graph_objects.Figure
-        Plotly figure
-```
-
-Example
-
-
-```python
-    from toolbox import ticker_price_analysis
-    from toolbox import ticker_prices
-    ticker_price_analysis.set_storage_path('~/Desktop/database', make_dir=True)
-    ticker_prices.set_storage_path('~/Desktop/database')
-
-    trend = ticker_prices.get_ticker_historical_trend('AAPL')
-    fig = ticker_price_analysis.get_figure(trend, ['Close', 'Open'], 'AAPL')
-    fig.show()
-    fig.write_image(f"AAPL_trend.png")
-```
-
 
 
 </details>
@@ -1224,7 +1173,7 @@ Example
 
 </summary>
 
-[def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L49) 
+[def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L53) 
 
 Note
 
@@ -1293,7 +1242,7 @@ Example
 
 </summary>
 
-[def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L98) 
+[def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L102) 
 
 Note
 
@@ -2796,7 +2745,7 @@ Reference
 
 </summary>
 
-[def save(name: str, data: any) -> None:](./../toolbox/database.py#L147) 
+[def save(name: str, data: any) -> None:](./../toolbox/database.py#L146) 
 
 Note
 
@@ -2973,7 +2922,7 @@ Reference
 
 </summary>
 
-[def load_key(platform: str) -> str:](./../toolbox/database.py#L267) 
+[def load_key(platform: str) -> str:](./../toolbox/database.py#L266) 
 
 Note
 

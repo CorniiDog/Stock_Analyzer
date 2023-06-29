@@ -161,7 +161,7 @@ Reference
 
 # >  function save #
 
-### [def save(name: str, data: any) -> None:](./../toolbox/database.py#L147) 
+### [def save(name: str, data: any) -> None:](./../toolbox/database.py#L146) 
 
 Note
 
@@ -287,7 +287,7 @@ Reference
 
 # >  function load_key #
 
-### [def load_key(platform: str) -> str:](./../toolbox/database.py#L267) 
+### [def load_key(platform: str) -> str:](./../toolbox/database.py#L266) 
 
 Note
 

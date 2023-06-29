@@ -260,6 +260,15 @@ if output_instructions:
         f.write(f"[Back to README.md](/README.md)\n\n")
         f.write("# DOCUMENTATION TABLE OF CONTENTS #\n\n")
         f.write(f"This is the documentation for the project {info.data['project_name']}.\n\n")
+
+        documentation_folder = info.data["documentation_folder"]
+        # Add a link to each file, that has a .ipynb extension
+        for file in os.listdir(documentation_folder):
+            if file.endswith(".ipynb"):
+                file_path = documentation_folder + "/" + file
+                file_name = file.split(".")[0]
+                f.write(f"[{file_name}](./{file_path})\n\n")
+
         f.write(documentation)
 
 keys = info.data.keys()
