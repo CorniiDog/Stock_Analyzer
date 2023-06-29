@@ -267,7 +267,7 @@ if output_instructions:
             if file.endswith(".ipynb"):
                 file_path = documentation_folder + "/" + file
                 file_name = file.split(".")[0]
-                f.write(f"[{file_name}](../{file_path})\n\n")
+                f.write(f"[{file_name}](/{file_path})\n\n")
 
         f.write(documentation)
 

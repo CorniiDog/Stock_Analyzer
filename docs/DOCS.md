@@ -4,7 +4,7 @@
 
 This is the documentation for the project Stock_Analyzer.
 
-[Plotting](./documentation/Plotting.ipynb)
+[Plotting](/documentation/Plotting.ipynb)
 
 ## INSTRUCTIONS.md ##
 
