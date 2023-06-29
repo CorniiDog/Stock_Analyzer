@@ -143,7 +143,6 @@ def get_modified_date(name: str):
     return datetime.datetime.fromtimestamp(os.path.getmtime(path))
 
 
-
 def save(name: str, data: any) -> None:
     """
     Parameters
@@ -177,6 +176,7 @@ def save(name: str, data: any) -> None:
     path = os.path.join(storage_folder, name + '.pkl')
     with open(path, 'wb') as f:
         pickle.dump(data, f)
+    print(f"Data saved to {path}")
 
 
 def delete_database(name: str) -> object:
@@ -254,7 +254,6 @@ def save_key(platform: str, key: str, override: bool = False) -> None:
     platform = slugify(platform)
     platform_file = os.path.join(keys_dir, f"{platform}.key")
 
-
     if not override:
         if os.path.exists(platform_file):
             raise Exception(f"Key for {platform} already exists. Use override=True to override the key.")
@@ -302,4 +301,3 @@ def load_key(platform: str) -> str:
 
     with open(platform_file, 'r') as f:
         return f.read()
-

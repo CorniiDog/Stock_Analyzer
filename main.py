@@ -27,15 +27,17 @@ def main():
     ticker = "AMZN"
     print(f"Getting {ticker} historical data")
     start_time = time.time()
-    trend = ticker_prices.get_ticker_historical_trend(ticker, cooldown=False, database_only=True, interval="1d")
+
+    start_date = datetime.datetime.now() - datetime.timedelta(days=31)
+    trend = ticker_prices.get_ticker_historical_trend(ticker, cooldown=False, database_only=False, interval="1d", start_date=start_date)
     print("Getting trend data")
     # Create columns variable that does not contain the Date and Volume column
     columns = trend.columns
     columns = columns.drop("Volume")
 
     print("Plotting Trend")
-    #trend_fig = ticker_plotter.get_figure(trend, columns, title=f"{ticker} Price")
-    #trend_fig.write_image(f"{ticker}_trend.png")
+    trend_fig = ticker_plotter.get_figure(trend, columns, title=f"{ticker} Price")
+    trend_fig.write_image(f"{ticker}_trend.png")
 
     # Create a candlestick figure
     #candlestick_fig = ticker_plotter.get_candlestick_figure(trend, title=f"{ticker} Candlestick")
@@ -51,7 +53,6 @@ def main():
 
     end_time = time.time()
     print(f"Time taken: {end_time - start_time}")
-
 
 
 # Press the green button in the gutter to run the script.

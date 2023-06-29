@@ -41,8 +41,12 @@ def create_date_index_(trend):
     # Deep copy the trend
     trend = trend.copy(deep=True)
 
+    # Interpolate the missing dates (For instance, if the market is closed on a day)
+    trend = trend.resample('D').interpolate(method='linear')
+
     for index, row in trend.iterrows():
         trend.at[index, "Date"] = index
+
     return trend
 
 
