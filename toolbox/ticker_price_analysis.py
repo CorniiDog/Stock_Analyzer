@@ -341,3 +341,30 @@ def get_pct_change_jerk(ticker: str, start_date=None, end_date=None, cooldown=Tr
                                                    database_only=database_only, interval=interval)
 
     return get_pct_change(diff(diff(diff(df))))
+
+
+def average(df: pd.DataFrame):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+
+    Returns
+    -------
+    average_df: pd.DataFrame
+        Dataframe with datetime index and columns of average
+
+    Notes
+    -----
+    This function is used to get the average of the dataframe
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    average_df = ticker_price_analysis.average(df)
+    print(average_df)
+    """
+
+    return df.mean(axis=1)

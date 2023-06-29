@@ -580,6 +580,57 @@ Example
 
 </details>
 
+
+ <details>
+<summary>
+
+### > [function average](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-average) 
+
+
+
+</summary>
+
+[def average(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L346) 
+
+Note
+
+
+```python
+    This function is used to get the average of the dataframe
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+```
+
+Return
+
+
+```python
+    average_df: pd.DataFrame
+        Dataframe with datetime index and columns of average
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    average_df = ticker_price_analysis.average(df)
+    print(average_df)
+```
+
+
+
+</details>
+
 <br></details>
 
 

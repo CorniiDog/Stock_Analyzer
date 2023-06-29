@@ -29,11 +29,11 @@ def main():
     start_time = time.time()
 
     start_date = datetime.datetime.now() - datetime.timedelta(days=31)
-    trend = ticker_prices.get_ticker_historical_trend(ticker, cooldown=False, database_only=True, interval="1h", start_date=start_date)
+    trend = ticker_prices.get_ticker_historical_trend(ticker, cooldown=False, database_only=True, start_date=start_date)
     print("Getting trend data")
     # Create columns variable that does not contain the Date and Volume column
-    columns = trend.columns
-    columns = columns.drop("Volume")
+    #columns = trend.columns
+    #columns = columns.drop("Volume")
 
     print("Plotting Trend")
     #trend_fig = ticker_plotter.get_figure(trend, columns, title=f"{ticker} Price")
