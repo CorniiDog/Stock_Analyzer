@@ -37,19 +37,6 @@ def set_storage_path(database_path: str, make_dir=False):
     ticker_prices.set_storage_path(database_path)
 
 
-def create_date_index_(trend):
-    # Deep copy the trend
-    trend = trend.copy(deep=True)
-
-    # Interpolate the missing dates (For instance, if the market is closed on a day)
-    trend = trend.resample('D').interpolate(method='linear')
-
-    for index, row in trend.iterrows():
-        trend.at[index, "Date"] = index
-
-    return trend
-
-
 def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):
     """
     Parameters
@@ -93,7 +80,7 @@ def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str =
     """
 
     # First create Date column for the plot
-    trend = create_date_index_(trend)
+    trend = ticker_prices.interpolate(trend, create_dates_column=True)
 
     return px.line(trend, x="Date", y=columns, title=title, color_discrete_sequence=px.colors.qualitative.Plotly,
                    labels={"value": yaxis_name, "variable": key_name})
@@ -136,7 +123,7 @@ def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "P
     """
 
     # First create Date column for the plot
-    trend = create_date_index_(trend)
+    trend = ticker_prices.interpolate(trend, create_dates_column=True)
 
     fig = go.Figure(data=[go.Candlestick(x=trend['Date'],
                     open=trend['Open'],

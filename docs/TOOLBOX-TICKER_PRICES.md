@@ -36,17 +36,92 @@ Example
     ticker_prices.set_storage_path('C:/Users/username/PycharmProjects/stock_analysis/database')
 ```
 
+# >  function clean_up_dataframe #
+
+### [def clean_up_dataframe(df: pd.DataFrame):](./../toolbox/ticker_prices.py#L38) 
+
+Note
+
+```python
+    This function is used to clean up the dataframe. It will remove duplicate rows based upon the "Date" column.
+    This is automatically called by the get_ticker_historical_trend function.
+```
+
+Param
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe to clean up
+```
+
+Return
+
+```python
+    df: pd.DataFrame
+        Cleaned up dataframe
+```
+
+Example
+
+```python
+    from toolbox import ticker_prices
+    df = ticker_prices.get_ticker_historical_trend('AAPL', start_date=datetime.datetime(2020, 1, 1), end_date=datetime.datetime(2020, 1, 2))
+    df = ticker_prices.clean_up_dataframe(df)
+    print(df)
+```
+
+# >  function interpolate #
+
+### [def interpolate(trend, resample='D', create_dates_column=False):](./../toolbox/ticker_prices.py#L79) 
+
+Note
+
+```python
+    This function is used to interpolate the dataframe. It will interpolate the dataframe based upon the resample
+```
+
+Param
+
+```python
+ters
+    ----------
+    trend: pd.DataFrame
+        Dataframe to interpolate
+    resample: str
+        Resample the dataframe to this frequency
+        'H' = Hourly
+        'D' = Daily
+```
+
+Return
+
+```python
+    trend: pd.DataFrame
+        Interpolated dataframe
+```
+
+Example
+
+```python
+    from toolbox import ticker_prices
+    df = ticker_prices.get_ticker_historical_trend('AAPL', start_date=datetime.datetime(2020, 1, 1), end_date=datetime.datetime(2020, 1, 2))
+    df = ticker_prices.interpolate(df)
+    print(df)
+```
+
 # >  function get_trend_request #
 
-### [def _get_trend_request_(ticker, start, end, cooldown_counter=0, interval="1h", cooldown=True):](./../toolbox/ticker_prices.py#L38) 
+### [def _get_trend_request_(ticker, start, end, cooldown_counter=0, interval="1h", cooldown=True):](./../toolbox/ticker_prices.py#L121) 
 
 # >  function get_trend #
 
-### [def _get_trend_(ticker, start_date, end_date, cooldown=True):](./../toolbox/ticker_prices.py#L61) 
+### [def _get_trend_(ticker, start_date, end_date, cooldown=True):](./../toolbox/ticker_prices.py#L144) 
 
 # >  function get_ticker_historical_trend #
 
-### [def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown = True, database_only=False, interval: str = "1h") -> pd.DataFrame:](./../toolbox/ticker_prices.py#L120) 
+### [def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown = True, database_only=False, interval: str = "1d") -> pd.DataFrame:](./../toolbox/ticker_prices.py#L203) 
 
 Note
 

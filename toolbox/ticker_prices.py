@@ -35,6 +35,89 @@ def set_storage_path(database_path: str, make_dir=False):
     database.set_storage_path(database_path)
 
 
+def clean_up_dataframe(df: pd.DataFrame):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe to clean up
+
+    Returns
+    -------
+    df: pd.DataFrame
+        Cleaned up dataframe
+
+    Notes
+    -----
+    This function is used to clean up the dataframe. It will remove duplicate rows based upon the "Date" column.
+    This is automatically called by the get_ticker_historical_trend function.
+
+    Examples
+    --------
+    from toolbox import ticker_prices
+    df = ticker_prices.get_ticker_historical_trend('AAPL', start_date=datetime.datetime(2020, 1, 1), end_date=datetime.datetime(2020, 1, 2))
+    df = ticker_prices.clean_up_dataframe(df)
+    print(df)
+    """
+
+    # Create Date column for the plot
+    for index, row in df.iterrows():
+        df.at[index, "Date"] = index
+
+    # Reset the index to be numbers
+    df = df.reset_index(drop=True)
+
+    # Remove duplicates based upon the "Date" column
+    df = df.drop_duplicates(subset=['Date'], keep='first')
+
+    # Re-index the dataframe based upon the "Date" column
+    df = df.set_index('Date')
+
+    return df
+
+
+def interpolate(trend, resample='D', create_dates_column=False):
+    """
+    Parameters
+    ----------
+    trend: pd.DataFrame
+        Dataframe to interpolate
+    resample: str
+        Resample the dataframe to this frequency
+        'H' = Hourly
+        'D' = Daily
+
+    Returns
+    -------
+    trend: pd.DataFrame
+        Interpolated dataframe
+
+    Notes
+    -----
+    This function is used to interpolate the dataframe. It will interpolate the dataframe based upon the resample
+
+    Examples
+    --------
+    from toolbox import ticker_prices
+    df = ticker_prices.get_ticker_historical_trend('AAPL', start_date=datetime.datetime(2020, 1, 1), end_date=datetime.datetime(2020, 1, 2))
+    df = ticker_prices.interpolate(df)
+    print(df)
+    """
+    # Deep copy the trend
+    trend = trend.copy(deep=True)
+
+    trend = clean_up_dataframe(trend)
+
+    # Interpolate the missing dates (For instance, if the market is closed on a day)
+    trend = trend.resample(resample).interpolate(method='linear')
+
+    if create_dates_column:
+        for index, row in trend.iterrows():
+            trend.at[index, "Date"] = index
+
+    return trend
+
+
 def _get_trend_request_(ticker, start, end, cooldown_counter=0, interval="1h", cooldown=True):
     if cooldown:
         time.sleep(3)
@@ -117,7 +200,7 @@ def _get_trend_(ticker, start_date, end_date, cooldown=True):
     return pre_existing_trend
 
 
-def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown = True, database_only=False, interval: str = "1h") -> pd.DataFrame:
+def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown = True, database_only=False, interval: str = "1d") -> pd.DataFrame:
     """
     Params
     ------
@@ -171,10 +254,6 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
     #if end_date.date() == datetime.datetime.today().date():
     #    end_date = end_date - datetime.timedelta(days=historical_buffer_days)
 
-
-
-
-
     pre_existing_trend = database.get(ticker + '_trend')
     if pre_existing_trend is None or len(pre_existing_trend.index) == 0:
         pre_existing_trend = _get_trend_(ticker, start_date, end_date, cooldown=cooldown)
@@ -201,16 +280,7 @@ def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = Non
             else:
                 pre_existing_trend = pd.concat([pre_existing_trend, trend])
 
-                # Remove duplicates
-                times = []
-                duplicate_times = []
-                for time in pre_existing_trend.index:
-                    if time not in times:
-                        times.append(time)
-                    else:
-                        duplicate_times.append(time)
-
-                pre_existing_trend = pre_existing_trend.loc[times]
+                pre_existing_trend = clean_up_dataframe(pre_existing_trend)
 
             database.save(ticker + '_trend', pre_existing_trend)
 

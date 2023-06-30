@@ -345,6 +345,36 @@ def get_pct_change_jerk(ticker: str, start_date=None, end_date=None, cooldown=Tr
     return get_pct_change(diff(diff(diff(df))))
 
 
+def interpolate(trend, resample='D', create_dates_column=False):
+    """
+    Parameters
+    ----------
+    trend: pd.DataFrame
+        Dataframe to interpolate
+    resample: str
+        Resample the dataframe to this frequency
+        'H' = Hourly
+        'D' = Daily
+
+    Returns
+    -------
+    trend: pd.DataFrame
+        Interpolated dataframe
+
+    Notes
+    -----
+    This function is used to interpolate the dataframe. It will interpolate the dataframe based upon the resample.
+    This function is an alias for toolbox.ticker_prices.interpolate
+
+    Examples
+    --------
+    from toolbox import ticker_prices
+    df = ticker_prices.get_ticker_historical_trend('AAPL', start_date=datetime.datetime(2020, 1, 1), end_date=datetime.datetime(2020, 1, 2))
+    df = ticker_prices.interpolate(df)
+    print(df)
+    """
+    return ticker_prices.interpolate(trend, resample, create_dates_column)
+
 def average(df: pd.DataFrame):
     """
     Parameters
@@ -486,6 +516,7 @@ def min(df: pd.DataFrame):
         df_copy[column] = [df[column].min()]
     return df_copy
 
+
 def skew(df: pd.DataFrame):
     """
     Parameters
@@ -525,4 +556,125 @@ def skew(df: pd.DataFrame):
         if df[column].isnull().values.all():
             continue
         df_copy[column] = [df[column].skew()]
+    return df_copy
+
+
+def rolling_mean(df: pd.DataFrame, window:int = 12):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    window: int
+        The number of periods to use for calculating the statistic
+
+    Returns
+    -------
+    rolling_mean_df: pd.DataFrame
+        Dataframe with datetime index and columns of rolling mean
+
+    Notes
+    -----
+    This function is used to get the rolling mean of the dataframe
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    rolling_mean_df = ticker_price_analysis.rolling_mean(df)
+    print(rolling_mean_df)
+    """
+    return df.rolling(window=window).mean()
+
+
+def rolling_std(df: pd.DataFrame, window:int = 12):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    window: int
+        The number of periods to use for calculating the statistic
+
+    Returns
+    -------
+    rolling_std_df: pd.DataFrame
+        Dataframe with datetime index and columns of rolling standard deviation
+
+    Notes
+    -----
+    This function is used to get the rolling standard deviation of the dataframe
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    rolling_std_df = ticker_price_analysis.rolling_std(df)
+    print(rolling_std_df)
+    """
+    return df.rolling(window=window).std()
+
+
+def df_log(df: pd.DataFrame):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+
+    Returns
+    -------
+    df_log: pd.DataFrame
+        Dataframe with datetime index and columns of log
+
+    Notes
+    -----
+    This function is used to get the log of the dataframe
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    df_log = ticker_price_analysis.df_log(df)
+    print(df_log)
+    """
+
+    return np.log(df)
+
+
+def get_stationary_trend(df: pd.DataFrame, window: int = 12):
+    """
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    window: int
+        The number of periods to use for calculating the statistic
+
+    Returns
+    -------
+    stationary_trend_df: pd.DataFrame
+        Dataframe with datetime index and columns of stationary trend
+
+    Notes
+    -----
+    This function is used to get the stationary trend of the dataframe
+
+    Examples
+    --------
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    stationary_trend_df = ticker_price_analysis.get_stationary_trend(df)
+    print(stationary_trend_df)
+    """
+
+    df_copy = pd.DataFrame()
+    for column in df.columns:
+        # If the column is incapable of being averaged, skip it
+        if df[column].dtype == 'object':
+            continue
+        # If the column is empty, skip it
+        if df[column].isnull().values.all():
+            continue
+        df_copy[column] = df[column] - df[column].rolling(window=window).mean()
     return df_copy

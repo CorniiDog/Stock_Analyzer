@@ -376,9 +376,49 @@ Example
     print(pct_change_jerk_df)
 ```
 
+# >  function interpolate #
+
+### [def interpolate(trend, resample='D', create_dates_column=False):](./../toolbox/ticker_price_analysis.py#L348) 
+
+Note
+
+```python
+    This function is used to interpolate the dataframe. It will interpolate the dataframe based upon the resample.
+    This function is an alias for toolbox.ticker_prices.interpolate
+```
+
+Param
+
+```python
+ters
+    ----------
+    trend: pd.DataFrame
+        Dataframe to interpolate
+    resample: str
+        Resample the dataframe to this frequency
+        'H' = Hourly
+        'D' = Daily
+```
+
+Return
+
+```python
+    trend: pd.DataFrame
+        Interpolated dataframe
+```
+
+Example
+
+```python
+    from toolbox import ticker_prices
+    df = ticker_prices.get_ticker_historical_trend('AAPL', start_date=datetime.datetime(2020, 1, 1), end_date=datetime.datetime(2020, 1, 2))
+    df = ticker_prices.interpolate(df)
+    print(df)
+```
+
 # >  function average #
 
-### [def average(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L348) 
+### [def average(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L378) 
 
 Note
 
@@ -413,7 +453,7 @@ Example
 
 # >  function standard_deviation #
 
-### [def standard_deviation(df: pd.DataFrame, sample=True):](./../toolbox/ticker_price_analysis.py#L383) 
+### [def standard_deviation(df: pd.DataFrame, sample=True):](./../toolbox/ticker_price_analysis.py#L413) 
 
 Note
 
@@ -450,7 +490,7 @@ Example
 
 # >  function max #
 
-### [def max(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L420) 
+### [def max(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L450) 
 
 Note
 
@@ -485,7 +525,7 @@ Example
 
 # >  function min #
 
-### [def min(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L455) 
+### [def min(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L485) 
 
 Note
 
@@ -520,7 +560,7 @@ Example
 
 # >  function skew #
 
-### [def skew(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L489) 
+### [def skew(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L520) 
 
 Note
 
@@ -557,5 +597,151 @@ Example
     df = ticker_prices.get_ticker_historical_trend('AAPL')
     skew_df = ticker_price_analysis.skew(df)
     print(skew_df)
+```
+
+# >  function rolling_mean #
+
+### [def rolling_mean(df: pd.DataFrame, window:int = 12):](./../toolbox/ticker_price_analysis.py#L562) 
+
+Note
+
+```python
+    This function is used to get the rolling mean of the dataframe
+```
+
+Param
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    window: int
+        The number of periods to use for calculating the statistic
+```
+
+Return
+
+```python
+    rolling_mean_df: pd.DataFrame
+        Dataframe with datetime index and columns of rolling mean
+```
+
+Example
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    rolling_mean_df = ticker_price_analysis.rolling_mean(df)
+    print(rolling_mean_df)
+```
+
+# >  function rolling_std #
+
+### [def rolling_std(df: pd.DataFrame, window:int = 12):](./../toolbox/ticker_price_analysis.py#L590) 
+
+Note
+
+```python
+    This function is used to get the rolling standard deviation of the dataframe
+```
+
+Param
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    window: int
+        The number of periods to use for calculating the statistic
+```
+
+Return
+
+```python
+    rolling_std_df: pd.DataFrame
+        Dataframe with datetime index and columns of rolling standard deviation
+```
+
+Example
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    rolling_std_df = ticker_price_analysis.rolling_std(df)
+    print(rolling_std_df)
+```
+
+# >  function df_log #
+
+### [def df_log(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L618) 
+
+Note
+
+```python
+    This function is used to get the log of the dataframe
+```
+
+Param
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+```
+
+Return
+
+```python
+    df_log: pd.DataFrame
+        Dataframe with datetime index and columns of log
+```
+
+Example
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    df_log = ticker_price_analysis.df_log(df)
+    print(df_log)
+```
+
+# >  function get_stationary_trend #
+
+### [def get_stationary_trend(df: pd.DataFrame, window: int = 12):](./../toolbox/ticker_price_analysis.py#L645) 
+
+Note
+
+```python
+    This function is used to get the stationary trend of the dataframe
+```
+
+Param
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    window: int
+        The number of periods to use for calculating the statistic
+```
+
+Return
+
+```python
+    stationary_trend_df: pd.DataFrame
+        Dataframe with datetime index and columns of stationary trend
+```
+
+Example
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    stationary_trend_df = ticker_price_analysis.get_stationary_trend(df)
+    print(stationary_trend_df)
 ```
 

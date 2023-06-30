@@ -584,13 +584,69 @@ Example
  <details>
 <summary>
 
+### > [function interpolate](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-interpolate) 
+
+
+
+</summary>
+
+[def interpolate(trend, resample='D', create_dates_column=False):](./../toolbox/ticker_price_analysis.py#L348) 
+
+Note
+
+
+```python
+    This function is used to interpolate the dataframe. It will interpolate the dataframe based upon the resample.
+    This function is an alias for toolbox.ticker_prices.interpolate
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    trend: pd.DataFrame
+        Dataframe to interpolate
+    resample: str
+        Resample the dataframe to this frequency
+        'H' = Hourly
+        'D' = Daily
+```
+
+Return
+
+
+```python
+    trend: pd.DataFrame
+        Interpolated dataframe
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_prices
+    df = ticker_prices.get_ticker_historical_trend('AAPL', start_date=datetime.datetime(2020, 1, 1), end_date=datetime.datetime(2020, 1, 2))
+    df = ticker_prices.interpolate(df)
+    print(df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
 ### > [function average](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-average) 
 
 
 
 </summary>
 
-[def average(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L348) 
+[def average(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L378) 
 
 Note
 
@@ -641,7 +697,7 @@ Example
 
 </summary>
 
-[def standard_deviation(df: pd.DataFrame, sample=True):](./../toolbox/ticker_price_analysis.py#L383) 
+[def standard_deviation(df: pd.DataFrame, sample=True):](./../toolbox/ticker_price_analysis.py#L413) 
 
 Note
 
@@ -694,7 +750,7 @@ Example
 
 </summary>
 
-[def max(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L420) 
+[def max(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L450) 
 
 Note
 
@@ -745,7 +801,7 @@ Example
 
 </summary>
 
-[def min(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L455) 
+[def min(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L485) 
 
 Note
 
@@ -796,7 +852,7 @@ Example
 
 </summary>
 
-[def skew(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L489) 
+[def skew(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L520) 
 
 Note
 
@@ -837,6 +893,216 @@ Example
     df = ticker_prices.get_ticker_historical_trend('AAPL')
     skew_df = ticker_price_analysis.skew(df)
     print(skew_df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function rolling_mean](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-rolling_mean) 
+
+
+
+</summary>
+
+[def rolling_mean(df: pd.DataFrame, window:int = 12):](./../toolbox/ticker_price_analysis.py#L562) 
+
+Note
+
+
+```python
+    This function is used to get the rolling mean of the dataframe
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    window: int
+        The number of periods to use for calculating the statistic
+```
+
+Return
+
+
+```python
+    rolling_mean_df: pd.DataFrame
+        Dataframe with datetime index and columns of rolling mean
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    rolling_mean_df = ticker_price_analysis.rolling_mean(df)
+    print(rolling_mean_df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function rolling_std](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-rolling_std) 
+
+
+
+</summary>
+
+[def rolling_std(df: pd.DataFrame, window:int = 12):](./../toolbox/ticker_price_analysis.py#L590) 
+
+Note
+
+
+```python
+    This function is used to get the rolling standard deviation of the dataframe
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    window: int
+        The number of periods to use for calculating the statistic
+```
+
+Return
+
+
+```python
+    rolling_std_df: pd.DataFrame
+        Dataframe with datetime index and columns of rolling standard deviation
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    rolling_std_df = ticker_price_analysis.rolling_std(df)
+    print(rolling_std_df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function df_log](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-df_log) 
+
+
+
+</summary>
+
+[def df_log(df: pd.DataFrame):](./../toolbox/ticker_price_analysis.py#L618) 
+
+Note
+
+
+```python
+    This function is used to get the log of the dataframe
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+```
+
+Return
+
+
+```python
+    df_log: pd.DataFrame
+        Dataframe with datetime index and columns of log
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    df_log = ticker_price_analysis.df_log(df)
+    print(df_log)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function get_stationary_trend](/docs/TOOLBOX-TICKER_PRICE_ANALYSIS.md#function-get_stationary_trend) 
+
+
+
+</summary>
+
+[def get_stationary_trend(df: pd.DataFrame, window: int = 12):](./../toolbox/ticker_price_analysis.py#L645) 
+
+Note
+
+
+```python
+    This function is used to get the stationary trend of the dataframe
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe with datetime index and columns of percent change
+    window: int
+        The number of periods to use for calculating the statistic
+```
+
+Return
+
+
+```python
+    stationary_trend_df: pd.DataFrame
+        Dataframe with datetime index and columns of stationary trend
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_price_analysis
+    df = ticker_prices.get_ticker_historical_trend('AAPL')
+    stationary_trend_df = ticker_price_analysis.get_stationary_trend(df)
+    print(stationary_trend_df)
 ```
 
 
@@ -1261,13 +1527,120 @@ Example
  <details>
 <summary>
 
+### > [function clean_up_dataframe](/docs/TOOLBOX-TICKER_PRICES.md#function-clean_up_dataframe) 
+
+
+
+</summary>
+
+[def clean_up_dataframe(df: pd.DataFrame):](./../toolbox/ticker_prices.py#L38) 
+
+Note
+
+
+```python
+    This function is used to clean up the dataframe. It will remove duplicate rows based upon the "Date" column.
+    This is automatically called by the get_ticker_historical_trend function.
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    df: pd.DataFrame
+        Dataframe to clean up
+```
+
+Return
+
+
+```python
+    df: pd.DataFrame
+        Cleaned up dataframe
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_prices
+    df = ticker_prices.get_ticker_historical_trend('AAPL', start_date=datetime.datetime(2020, 1, 1), end_date=datetime.datetime(2020, 1, 2))
+    df = ticker_prices.clean_up_dataframe(df)
+    print(df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
+### > [function interpolate](/docs/TOOLBOX-TICKER_PRICES.md#function-interpolate) 
+
+
+
+</summary>
+
+[def interpolate(trend, resample='D', create_dates_column=False):](./../toolbox/ticker_prices.py#L79) 
+
+Note
+
+
+```python
+    This function is used to interpolate the dataframe. It will interpolate the dataframe based upon the resample
+```
+
+Param
+
+
+```python
+ters
+    ----------
+    trend: pd.DataFrame
+        Dataframe to interpolate
+    resample: str
+        Resample the dataframe to this frequency
+        'H' = Hourly
+        'D' = Daily
+```
+
+Return
+
+
+```python
+    trend: pd.DataFrame
+        Interpolated dataframe
+```
+
+Example
+
+
+```python
+    from toolbox import ticker_prices
+    df = ticker_prices.get_ticker_historical_trend('AAPL', start_date=datetime.datetime(2020, 1, 1), end_date=datetime.datetime(2020, 1, 2))
+    df = ticker_prices.interpolate(df)
+    print(df)
+```
+
+
+
+</details>
+
+
+ <details>
+<summary>
+
 ### > [function get_trend_request](/docs/TOOLBOX-TICKER_PRICES.md#function-get_trend_request) 
 
 
 
 </summary>
 
-[def _get_trend_request_(ticker, start, end, cooldown_counter=0, interval="1h", cooldown=True):](./../toolbox/ticker_prices.py#L38) 
+[def _get_trend_request_(ticker, start, end, cooldown_counter=0, interval="1h", cooldown=True):](./../toolbox/ticker_prices.py#L121) 
 
 
 
@@ -1283,7 +1656,7 @@ Example
 
 </summary>
 
-[def _get_trend_(ticker, start_date, end_date, cooldown=True):](./../toolbox/ticker_prices.py#L61) 
+[def _get_trend_(ticker, start_date, end_date, cooldown=True):](./../toolbox/ticker_prices.py#L144) 
 
 
 
@@ -1299,7 +1672,7 @@ Example
 
 </summary>
 
-[def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown = True, database_only=False, interval: str = "1h") -> pd.DataFrame:](./../toolbox/ticker_prices.py#L120) 
+[def get_ticker_historical_trend(ticker: str, start_date: datetime.datetime = None, end_date: datetime.datetime = None, cooldown = True, database_only=False, interval: str = "1d") -> pd.DataFrame:](./../toolbox/ticker_prices.py#L203) 
 
 Note
 
@@ -1416,29 +1789,13 @@ Example
  <details>
 <summary>
 
-### > [function create_date_index](/docs/TOOLBOX-TICKER_PLOTTER.md#function-create_date_index) 
-
-
-
-</summary>
-
-[def create_date_index_(trend):](./../toolbox/ticker_plotter.py#L40) 
-
-
-
-</details>
-
-
- <details>
-<summary>
-
 ### > [function get_figure](/docs/TOOLBOX-TICKER_PLOTTER.md#function-get_figure) 
 
 
 
 </summary>
 
-[def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L53) 
+[def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L40) 
 
 Note
 
@@ -1507,7 +1864,7 @@ Example
 
 </summary>
 
-[def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L102) 
+[def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L89) 
 
 Note
 

@@ -36,13 +36,9 @@ Example
     ticker_price_analysis.set_storage_path('~/Desktop/database', make_dir=True)
 ```
 
-# >  function create_date_index #
-
-### [def create_date_index_(trend):](./../toolbox/ticker_plotter.py#L40) 
-
 # >  function get_figure #
 
-### [def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L53) 
+### [def get_figure(trend: pd.DataFrame, columns: list, title: str, yaxis_name: str = "Price ($)", key_name: str = "Type"):](./../toolbox/ticker_plotter.py#L40) 
 
 Note
 
@@ -95,7 +91,7 @@ Example
 
 # >  function get_candlestick_figure #
 
-### [def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L102) 
+### [def get_candlestick_figure(trend: pd.DataFrame, title: str, yaxis_name: str = "Price ($)"):](./../toolbox/ticker_plotter.py#L89) 
 
 Note
 

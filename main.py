@@ -28,20 +28,31 @@ def main():
     print(f"Getting {ticker} historical data")
     start_time = time.time()
 
-    start_date = datetime.datetime.now() - datetime.timedelta(days=31)
-    trend = ticker_prices.get_ticker_historical_trend(ticker, cooldown=False, database_only=True, start_date=start_date)
+    start_date = None #datetime.datetime.now() - datetime.timedelta(days=365*3)
+    trend = ticker_prices.get_ticker_historical_trend(ticker, cooldown=False, database_only=False, start_date=start_date)
 
-    averages = ticker_price_analysis.skew(trend)
-    print(averages)
+    # Interpolate missing values
+    trend = ticker_price_analysis.interpolate(trend)
 
-    print("Getting trend data")
-    # Create columns variable that does not contain the Date and Volume column
-    #columns = trend.columns
-    #columns = columns.drop("Volume")
+    columns = trend.columns
+    columns = columns.drop("Volume")
 
-    print("Plotting Trend")
-    #trend_fig = ticker_plotter.get_figure(trend, columns, title=f"{ticker} Price")
-    #trend_fig.write_image(f"{ticker}_trend.png")
+    # Show trend
+    trend_fig = ticker_plotter.get_figure(trend, columns, title=f"{ticker} Price")
+    trend_fig.write_image(f"{ticker}_trend.png")
+    #print(trend)
+
+    trend_log = ticker_price_analysis.df_log(trend)
+
+    stationary_trend = ticker_price_analysis.get_stationary_trend(trend, window=12)
+
+    stationary_trend = ticker_price_analysis.rolling_mean(stationary_trend, window=93)
+
+    stationary_trend_fig = ticker_plotter.get_figure(stationary_trend, columns, title=f"{ticker} Stationary Price")
+    stationary_trend_fig.write_image(f"{ticker}_stationary_trend.png")
+
+    print(stationary_trend)
+
 
     # Create a candlestick figure
     #candlestick_fig = ticker_plotter.get_candlestick_figure(trend, title=f"{ticker} Candlestick")
@@ -51,9 +62,11 @@ def main():
     print("Getting Percent Change")
     pct_change = ticker_price_analysis.get_pct_change(trend)
 
+    pct_change = ticker_price_analysis.rolling_mean(pct_change, window=93)
+
     print("Plotting Percent Change")
-    #pct_fig = ticker_plotter.get_figure(pct_change, columns, title=f"{ticker} Percent Change", yaxis_name="Percent Change")
-    #pct_fig.write_image(f"{ticker}_pct.png")
+    pct_fig = ticker_plotter.get_figure(pct_change, columns, title=f"{ticker} Percent Change", yaxis_name="Percent Change")
+    pct_fig.write_image(f"{ticker}_pct.png")
 
     end_time = time.time()
     print(f"Time taken: {end_time - start_time}")
